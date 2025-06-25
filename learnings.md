@@ -118,3 +118,32 @@
 - So with the data warehouses having these capabilities the tools Like DBT is so powerful to manage the things seamlessly.
 - So here we need to set up the tools in our architecture based on the needs. 
 - Like when the client wants to perform adhoc analysis then we can directly use the amazon athena on top of the data came in s3 bucket. So let's say today client wants only 3 columns from the data came in s3, but tomorrow client might need 4 columns so we don't need to change our transformation logic. But we can just use athena where we can do these things easily.
+
+## Data Source
+
+- We will be using movie-lens dataset. [Link](https://grouplens.org/datasets/movielens/20m/)
+- To understand the data, go through this readme [Link](https://files.grouplens.org/datasets/movielens/ml-20m-README.html)
+- Rating Data File Structure:
+  - Schema: userId, movieId, rating, timestamp
+  - Rating: range(0.5, 5)
+  - timestamp: UTC
+- Tags Data File Structure:
+  - Schema: userId, movieId, tag, timestamp
+  - Tag: single word or short phrase showing the feedback of movie provided by user.
+  - Timestamp: UTC
+- Movie Data File Structure:
+  - Schema: movieId, title, genres
+  - title: Shows movie title, it might contain inconsistency in name.
+  - genres: pipe-separated list.
+- Links Data File Structure:
+  - Schema: movieId, imdbId, tmdbId
+  - movieId: Identifier for particular movie in movie-lens dataset.
+  - imdbId: Identifier for particular movie used in imdb.
+  - tmdbId: Identifier for particular movie used in the movie DB.
+- Tag Genome:
+  - Here genome contains tag relevance scores for movies.
+  - The genome is split in two files: genome-scores.csv & genome-tags.csv.
+  - genome-scores.csv Schema: movieId, tagId, relevance
+  - genome-tags.csv Schema: tagId, tag
+  - The tagId values are generated when the dataset is exported, so they may vary from version to version of the MovieLens dataset.
+- 
