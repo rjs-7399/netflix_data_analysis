@@ -4,6 +4,13 @@
 - Snowflake Data Warehouse
 - Data Engineering
 
+## Things to explore
+
+- Best way to load the data from s3 to snowflake in production grade systems.
+- Explore these two things to load the data from external systems to snowflake warehouse: 
+  - Snowflake stage
+  - Storage integration
+
 ## Notes
 
 - Here the main goal of this project is to learn DBT.
@@ -146,4 +153,38 @@
   - genome-scores.csv Schema: movieId, tagId, relevance
   - genome-tags.csv Schema: tagId, tag
   - The tagId values are generated when the dataset is exported, so they may vary from version to version of the MovieLens dataset.
-- 
+
+## Loading data from local to snowflake
+
+- There are few ways:
+  - We can manually create a table in snowflake warehouse and load the data from local to snowflake.
+  - We can copy the files from local to AWS s3 using aws cp command.
+  - We can set up the airflow dag which loads the data from local to s3 bucket.
+- In the production grade systems we receive the data from multiple source systems.
+- So we use the data lake to keep all the data from multiple source systems in as it is format.
+- Then we ingest the data from s3 bucket to our bronze layer but here we take care of structure of the data.
+- So in production grade systems we have to setup a DAG which will have a daily trigger to load the data from multiple source system.
+- But for our project purpose we will just load all the files directly to the S3 using AWS CLI command.
+
+## Creating a role with specific access in snowflake
+
+- Now we have created the `instructions.sql` script which contains following steps:
+    - create the admin and transform role
+    - create the warehouse
+    - create the dbt user
+    - create the database and schema for movie-lens
+    - grant the permissions to transform role
+      - data warehouse, database, schema, future schema, tables, future tables
+- Till now we created a role that has a customize access and a user that has a permission to go through that role.
+- So in case our creadentials get leaked, the hacker will have limited access to the snowflake account.
+
+## Loading data from s3 to snowflake bronze layer
+
+- There are multiple ways to connect with s3 from snowflake:
+  - Snowflake stage: We can create a stage to load the data from external system to snowflake data warehouse.
+  - Snowflake storage integration: This is more secured way to do the same. Here we don't need to integrate internal permission to access the data.
+- Here we will go with the snowflake stage which requires aws access key and id.
+- So we will create the user in aws and add the key and id in the snowflake stage sql command.
+- Here we will give s3FullAccess with attach policy directly in aws.
+- So this will create `snowflakenetflixuser7399` in AWS IAM.
+- Now to get the access key we need to click on the user > security credentials > Local code
