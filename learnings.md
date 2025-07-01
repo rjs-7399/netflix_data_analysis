@@ -252,4 +252,20 @@
     - ephemeral
     - materialized view
   - We can also configure custom materializations in dbt. [link for more information](https://docs.getdbt.com/docs/build/materializations).
-  -  
+- After running gitst DBT model we will apply the same process for all the other 5 entities.
+- As we have specified view as a type, it will create view for all the 6 entities in snowflake.
+- So all the models are ready.
+- So all of the models that we created are getting created as a view inside our DBT.
+- But what if we want to create a table or incremental or epheremal table.
+- So if we focus on the fundamental of data warehouse. The fact table sits in the center and all the dimension tables sits in the perepharal of the fact table.
+- Here as per the medallion architecture:
+  - staging = bronze
+  - clean = silver
+  - consumption = gold
+- So basically what we did:
+  - We loaded the CSV files from local to the s3 bucket in raw layer using S3 cp command.
+  - Then we used DBT, which created views in staging layer by loading the data from tables in raw layer. 
+  - Now We will create a clean layer. Here clean layer will actually contain the dimension and fact tables.
+  - This is where the actual data warehouse implementation starts.
+- Now here we will understand the 4th point of the DBT that says, DBT model can reference other models, creating a dependency graph.
+- Here we will be creating the dimension tables in the clean layer. So we will be using tables in materialization type.
