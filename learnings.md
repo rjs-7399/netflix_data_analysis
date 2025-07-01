@@ -190,7 +190,7 @@
 - Now to get the access key we need to click on the user > security credentials > Local code.
 - So extract folder contains all the sql scripts required to load the data from AWS s3 to snowflake bronze.
 
-## DBT 
+## DBT setup
 
 - You can refer to this (Link)[https://notes.datavidhya.com/]
 - There are two main ways to install and set up the DBT.
@@ -216,3 +216,24 @@
     target: dev
 - This was the first configuration and connection with the snowflake from any DBT project.
 - To work on any DBT project we must need to do this setup in the beginning. This will setup the connection.
+
+## DBT Models
+
+- What are DBT models ?
+  - DBT models are SQL select statement that transform your data.
+  - Each model:
+    - Is defined in .sql file
+    - Contains a single SELECT statement
+    - Produces a table or view in your data warehouse
+    - Can reference other models, creating a dependency graph
+  - Models are the core building blocks of DBT project and represent the transformations applied to your data.
+
+- Running first DBT model
+  - Here we have established the connection from dbt local to the snowflake cloud.
+  - So whatever the model we run from local, it will be executed on the snowflake cloud.
+  - So here we are first interacting with RAW and STAGING.
+  - RAW bucket contains as it is copy of the data came from multiple source systems.
+  - Now we will perform minimum transformation on the data came in RAW layer and copy it to the STAGING.
+  - Once you create the dbt model under models/staging/src_movies.sql.
+  - You need to run the sql with command: dbt run
+  - This will execute the sql script on snowflake and create the view named as src_movies.
