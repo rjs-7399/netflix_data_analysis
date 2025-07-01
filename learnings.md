@@ -187,4 +187,32 @@
 - So we will create the user in aws and add the key and id in the snowflake stage sql command.
 - Here we will give s3FullAccess with attach policy directly in aws.
 - So this will create `snowflakenetflixuser7399` in AWS IAM.
-- Now to get the access key we need to click on the user > security credentials > Local code
+- Now to get the access key we need to click on the user > security credentials > Local code.
+- So extract folder contains all the sql scripts required to load the data from AWS s3 to snowflake bronze.
+
+## DBT 
+
+- You can refer to this (Link)[https://notes.datavidhya.com/]
+- There are two main ways to install and set up the DBT.
+  - DBT Cloud: A web-based service that provides a development environment, job scheduler, and documentation hosting.
+  - DBT Core: The open-source command-line version that you can run locally or on your servers.
+- Commands that I ran for initiallizing DBT
+  - pip install -r requirements.txt
+  - mkdir ~/.dbt
+  - dbt init netflix
+  - cat ~/.dbt/profiles.yml
+    netflix:
+    outputs:
+      dev:
+        account: LKNNSSN-MZ10071
+        database: MOVIELENS
+        password: dbtPassword123
+        role: TRANSFORM
+        schema: RAW
+        threads: 1
+        type: snowflake
+        user: dbt
+        warehouse: COMPUTE_WH
+    target: dev
+- This was the first configuration and connection with the snowflake from any DBT project.
+- To work on any DBT project we must need to do this setup in the beginning. This will setup the connection.
