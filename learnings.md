@@ -10,6 +10,7 @@
 - Explore these two things to load the data from external systems to snowflake warehouse: 
   - Snowflake stage
   - Storage integration
+- DBT materialization
 
 ## Notes
 
@@ -237,3 +238,18 @@
   - Once you create the dbt model under models/staging/src_movies.sql.
   - You need to run the sql with command: dbt run
   - This will execute the sql script on snowflake and create the view named as src_movies.
+  - So here what we did. We simply followed the first three steps defined in the DBT model.
+  - We defined the sql script containing the single sql statement which produced a table or view in the snowflake data warehouse in movielens database.
+  - Here the question arises is why did it created a view, why not the table.
+  - Because if we check the dbt_project.yml in the last line in netflix model, by default we have defined +materialized: view
+  - So that's why it created a view instead of creating a table.
+  - Here we have to explore the concept of DBT materialization.
+  - Here materialization are the strategies for persisting dbt models in data warehouse.
+  - There are five types of materialization built into dbt:
+    - table
+    - view
+    - incremental
+    - ephemeral
+    - materialized view
+  - We can also configure custom materializations in dbt. [link for more information](https://docs.getdbt.com/docs/build/materializations).
+  -  
