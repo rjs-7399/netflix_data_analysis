@@ -284,3 +284,6 @@
 - So we will just open vi ~/.dbt and change the schema from RAW to DEV.
 - Then we will run dbt run. So it will now create all the staging views and dim table under DEV schema.
 - Then we will manually delete all the views and dim table from RAW schema.
+- Here entire movie data is coming from src_movies so we used that table only to create dimension model.
+- But for the users we have the data from tags and ratings that's why we are selecting the distinct values from both and creating the dimension table.
+- 
