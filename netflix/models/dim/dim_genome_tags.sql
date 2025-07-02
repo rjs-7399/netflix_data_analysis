@@ -3,5 +3,5 @@ WITH src_tags AS (
 )
 SELECT
     tag_id,
-    INITCAP(TRIP(tag)) AS tag_name
+    INITCAP(TRIM(tag)) AS tag_name
 FROM src_tags
