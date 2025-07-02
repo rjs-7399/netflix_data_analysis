@@ -269,3 +269,18 @@
   - This is where the actual data warehouse implementation starts.
 - Now here we will understand the 4th point of the DBT that says, DBT model can reference other models, creating a dependency graph.
 - Here we will be creating the dimension tables in the clean layer. So we will be using tables in materialization type.
+- So in the dimension table we can reference the DBT models used in the staging and directly use their output.
+- Here in the dimension table we can reference the view got created in staging layer and create the temp table and perform some minimum transformations on it.
+- Here we can write the transformation block using SQL, Completely creating a dependency graph.
+- So this solves the purpose of 4th point mentioned in the DBT models, Which says we can reference other models, creating a dependency graph.
+- Ok now after creating dimension DBT model for movies when we run command: dbt run it will execute the 7 models again. 6 existing models for staging views and 7th model for dimension movies.
+- Here for dim folder we have specified table as a materialization. So it will create the dimension table for movies.
+- For each model inside dim folder it will create the table.
+- Here the problem is we have created RAW schema to copy the data from local to RAW layer so it is fine to load the raw data in it.
+- But we are also keeping the dim tables in the same RAW schema.
+- Ideally we have to create different schema for RAW and Staging both.
+- So the thing is When we load the data from local to RAW it should be loaded under RAW schema.
+- But when we are transforming the data from RAW to Staging then it should be under DEV schema. Which is Staging Schema.
+- So we will just open vi ~/.dbt and change the schema from RAW to DEV.
+- Then we will run dbt run. So it will now create all the staging views and dim table under DEV schema.
+- Then we will manually delete all the views and dim table from RAW schema.
