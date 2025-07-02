@@ -1,5 +1,5 @@
 WITH src_scores AS (
-    SELECT * FROM {{ ref('src_genome_score')}}
+    SELECT * FROM {{ ref('src_genome_scores')}}
 )
 SELECT
     movie_id,
