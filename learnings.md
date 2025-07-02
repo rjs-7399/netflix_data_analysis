@@ -287,3 +287,5 @@
 - Here entire movie data is coming from src_movies so we used that table only to create dimension model.
 - But for the users we have the data from tags and ratings that's why we are selecting the distinct values from both and creating the dimension table.
 - So till now we have created dimension tables for users, genome_tags and movies.
+- So now we will create the fact tables.
+- 
