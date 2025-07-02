@@ -288,4 +288,4 @@
 - But for the users we have the data from tags and ratings that's why we are selecting the distinct values from both and creating the dimension table.
 - So till now we have created dimension tables for users, genome_tags and movies.
 - So now we will create the fact tables.
-- 
+- To run only one DBT model we have to run this command: dbt run --model <model-name>
