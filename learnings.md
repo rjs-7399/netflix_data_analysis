@@ -289,3 +289,5 @@
 - So till now we have created dimension tables for users, genome_tags and movies.
 - So now we will create the fact tables.
 - To run only one DBT model we have to run this command: dbt run --model <model-name>
+- Here we did not specified the materialization type for genome score fact. So by default it will create the view.
+- But here we want the dimension table for genome scores. So we will modify the materialization type in the yml file again.
