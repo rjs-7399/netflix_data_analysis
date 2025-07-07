@@ -291,3 +291,27 @@
 - To run only one DBT model we have to run this command: dbt run --model <model-name>
 - Here we did not specified the materialization type for genome score fact. So by default it will create the view.
 - But here we want the dimension table for genome scores. So we will modify the materialization type in the yml file again.
+- Here when we redefine the structure for materialization from view to table it automatically moves the genome scores fact from view to table.
+- Now moving on to the next parts. We need to explore the incremental and ephemeral.
+- Here we can understand the concept of SCD. Slowly changing Dimension.
+- When we design the data model we use two things that are dimension table and fact table.
+- Here the fact table mainly contains the data which is quantifiable. Based on the data exist in the fact table any team can perform the data analysis.
+- Fact table mainly contains huge data. Like orders data in the case of zomato.
+- So in any system the dimension tables contains the data which changes very slowly.
+- Like in the case of zomato the customer table is considered as a dimension table. And customer's change their address very rarely.
+- So here we implement the SCD. That is slowly changing data.
+- There are 6 types of SCD. 1,2,3,6.
+- Implementing SCD becomes a tedious task when we are working with pyspark.
+- Because to maintain the versions of the data we need to perform the upsert operation. And pyspark only supports insert and overwrite.
+- Well using delta format we can achieve some sort of flexibility. But still it is complicated to implement.
+- But in dbt we can use incremental to achieve the same thing.
+- Incremental model is mainly used to insert or update the records in a table since the last time the model was run.
+- Whenever we add a data in the source table, it will automatically gets reflected on to the incremental table that we created.
+- Now here let's say we are sourcing the data from other table and the schema changes on the source side so we won't be able to incrementally update the fact table.
+- So we are keeping the failure on schema changes in fct_ratings.
+- These type of configs can overwrite any type of config that we define onto the DBT project.
+- Whenever the new row is added into the src_ratings table whatever the MAX timestamp available is let's say 5 pm, And the new row is added on the 6 pm.
+- So what it will check ? It will check {{ this }} table. The fact ratings, it will get the MAX rating_timestamp which is 5 pm based on the previous record.
+- And the current rating timestamp into this table will be 6 pm because the new row got added.
+- So basically whenever the new record in source table is added with the higher value then the current value it will auto increment the data in target table.
+- 
