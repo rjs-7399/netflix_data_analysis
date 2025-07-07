@@ -314,4 +314,12 @@
 - So what it will check ? It will check {{ this }} table. The fact ratings, it will get the MAX rating_timestamp which is 5 pm based on the previous record.
 - And the current rating timestamp into this table will be 6 pm because the new row got added.
 - So basically whenever the new record in source table is added with the higher value then the current value it will auto increment the data in target table.
-- 
+- Now once we created the fact table for ratings entity, Now we want to see the demo on incremental tables.
+- So here fct_ratings is incremental table which is created on top of SRC_RATINGS which is view.
+- Here views doesn't contain the physical data. It is created on top of raw_ratings table in raw schema. So we want to add the additional data into our RAW files.
+- So here we don't want to mess up with the existing raw data. So we will change the materialized configs in src_ratings sql query.
+- Here instead of messing up with the raw files we will move src_ratings entity from view to table.
+- So once we run the query to fetch all the records in src_ratings order by rating_timestamp. We will see `2015-03-30 23:40:02.000 -0700` is the highest timestamp.
+- So Here we will insert in the src_ratings and we will insert the record with timestamp greater then the above one.
+- After adding the new row in src_ratings table once we run the fct_ratings model again it will reflect the new row in fact rating table.
+- So this is how the incremental works.
