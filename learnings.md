@@ -333,3 +333,5 @@
 - When we executed it, it just create some CTE behind the scene, nothing else.
 - But when we executed the ep_movie_with_tags which actually invokes the ephemeral materialization then in this case it is executing actual ephemeral.
 - So basically using ephemeral we are not actually creating any table in DB directly but we can say its a smallest piece of code that we can invoke in any other query and execute it.
+- So here we are done with all the concepts of DBT model. We have viewed Tables, View, Incremental & Ephemeral.
+- 
