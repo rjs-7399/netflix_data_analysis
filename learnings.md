@@ -323,3 +323,13 @@
 - So Here we will insert in the src_ratings and we will insert the record with timestamp greater then the above one.
 - After adding the new row in src_ratings table once we run the fct_ratings model again it will reflect the new row in fact rating table.
 - So this is how the incremental works.
+- Till now we have worked on views, tables, incremental. Next we will see the ephemeral.
+- When we run the ephemeral model it won't actually create any model or view. But it will just execute without any additional steps that's it.
+- Because here in ephemeral, models did not directly build into the database. Instead, dbt will interpolate the code from an ephemeral model into its dependent models using CTE.
+- We can control the ID for this CTE using a model alias, but dbt will always prefix the model ID with __dbt__cte__.
+- Simply it will run in the backend and any model which is using this, it will get it from the backend.
+- So instead of creating new table we can use all these information anywhere.
+- Here basically we created two things, dim_movies_with_tags which is actual code for ephemeral, and ep_movie_with_tags which is actually calling the CTE from dim_movies_with_tags.
+- When we executed it, it just create some CTE behind the scene, nothing else.
+- But when we executed the ep_movie_with_tags which actually invokes the ephemeral materialization then in this case it is executing actual ephemeral.
+- So basically using ephemeral we are not actually creating any table in DB directly but we can say its a smallest piece of code that we can invoke in any other query and execute it.
