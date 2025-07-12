@@ -334,4 +334,9 @@
 - But when we executed the ep_movie_with_tags which actually invokes the ephemeral materialization then in this case it is executing actual ephemeral.
 - So basically using ephemeral we are not actually creating any table in DB directly but we can say its a smallest piece of code that we can invoke in any other query and execute it.
 - So here we are done with all the concepts of DBT model. We have viewed Tables, View, Incremental & Ephemeral.
+
+## Seeds & Sources
+
+- Seeds in DBT are CSV files that we can upload in our data warehouse. They're useful for static reference data like country codes, ZIP code mappings or product categories.
+- So basically if we have some CSV file in our local and we want to create a table from it. Rather then uploading it to s3 and writing some logic to map the fields and load it in DW we can use the seed files directly.
 - 
