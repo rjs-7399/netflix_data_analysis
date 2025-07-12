@@ -351,3 +351,22 @@
   - Documentation of where our data comes from
   - Testing capabilities for raw data
   - The ability to check if sources are "fresh"
+- Inside the model we can create sources.yml file. Here we can keep track of the things that we want to do.
+- There are two things: sources and schema.
+- First we will check sources.
+- Here we can add the mapping of all sources in sources.yml and we can directly use them in the DBT models.
+- Like in `staging/src_movier.sql` we can replace this
+```
+WITH raw_movies AS (
+    SELECT * FROM MOVIELENS.RAW.RAW_MOVIES
+)
+```
+with
+```
+WITH raw_movies AS (
+    SELECT * FROM sources('r_movies')
+)
+```
+- Here this means, we have defined the set of mapping and rules in our config file and using this we can directly perform operations on this mapping.
+- Here we can define the custom database, schema, columns, description and test related details.
+- And after defining the sources we can reference them in our custom DBT models as I defined above.
