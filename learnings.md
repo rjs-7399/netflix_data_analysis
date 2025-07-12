@@ -339,4 +339,5 @@
 
 - Seeds in DBT are CSV files that we can upload in our data warehouse. They're useful for static reference data like country codes, ZIP code mappings or product categories.
 - So basically if we have some CSV file in our local and we want to create a table from it. Rather then uploading it to s3 and writing some logic to map the fields and load it in DW we can use the seed files directly.
-- 
+- So here we simply run 'dbt seed' command which created the table as same as the name of the file in the datawarehouse.
+- Here in dbt_project.yml file we have already defined the path to seed file so it automatically picked up the seed file and loaded the data.
