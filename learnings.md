@@ -370,3 +370,40 @@ WITH raw_movies AS (
 - Here this means, we have defined the set of mapping and rules in our config file and using this we can directly perform operations on this mapping.
 - Here we can define the custom database, schema, columns, description and test related details.
 - And after defining the sources we can reference them in our custom DBT models as I defined above.
+
+## Snapshots
+
+- Snapshots in DBT are a built-in implementation of SCD Type 2. Here SCD means slowly changing dimensions.
+- They record the state of a mutable table over time by:
+  - Tracking changes to specified columns
+  - Adding effective dates (eff_start_dt, eff_end_dt)
+  - Maintaining a complete history of changes
+- To run all snapshots in the DBT project we can simply run this command `dbt snapshot`
+- This command will:
+  - Check for the changes since the last snapshot run.
+  - Create new records for any changed data.
+  - Update the eff_end_dt field for outdated records.
+- Here eff_end_dt and eff_start_dt we were using in snowflake but here are the different terminologies for DBT specific project.
+- Specific set of columns added in DBT:
+  - dbt_valid_from: When the version became active.
+  - dbt_valid_to: When the version was superseded (null for current).
+  - dbt_scd_id: Unique id for each version.
+  - dbt_updated_at: When this snapshot was taken.
+- Here we define surrogate key using unique key in DBT snapshots.
+- Here we have one concept of surrogate keys.
+- When the data is coming from multiple data sources like, APIs, RDBMS then they have their own unique columns which represents unique column for those source systems.
+- But when we are designing dimension table or fact table. We have to keep our own version of key to join different tables.
+- Here we don't need to care about that the source system will know this ID or not. We just need to know this ID in our internal system.
+
+### DBT Packages
+
+- Software Engineers frequently modularize code into libraries. These libraries help programmers operate with levarage.
+- They can spend more time focusing on their unique business logic, and less time implementing code that someone else has already spent the time perfecting.
+- In DBT, libraries like these are called packages. DBT's packages are so powerful because so many of the analytic problems we encountered are shared across organizations, for example:
+  - Transforming data from consistently structured Saas dataset.
+  - Writing DBT macros that perform similar functions.
+  - Building models and macros for a particular tool used in your data stack.
+- Use cases:
+  - These steps will work for any DBT project:
+    - Add any package dependencies to packages.yml
+    - Add any project dependencies to dependencies.yml
