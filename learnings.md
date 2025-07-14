@@ -395,8 +395,12 @@ WITH raw_movies AS (
 - But when we are designing dimension table or fact table. We have to keep our own version of key to join different tables.
 - Here we don't need to care about that the source system will know this ID or not. We just need to know this ID in our internal system.
 
-### DBT Packages
+## DBT Packages
 
+- DBT packages are collection of models, macros, and tests that can be reused across projects. They provide a way to:
+  - Share common transformations.
+  - Levarage community-created functionality.
+  - Maintain modular code across projects.
 - Software Engineers frequently modularize code into libraries. These libraries help programmers operate with levarage.
 - They can spend more time focusing on their unique business logic, and less time implementing code that someone else has already spent the time perfecting.
 - In DBT, libraries like these are called packages. DBT's packages are so powerful because so many of the analytic problems we encountered are shared across organizations, for example:
@@ -407,3 +411,6 @@ WITH raw_movies AS (
   - These steps will work for any DBT project:
     - Add any package dependencies to packages.yml
     - Add any project dependencies to dependencies.yml
+- So we created packages.yml. Whenever we run this it will go in the dbt_utils package.
+- It will go in dbt_packages/dbt_utils and it will install all the requirements for the DBT package.
+- 
